@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<rule name="MyStandard">
+    <description>This standard changes the line length</description>
+    <file>.</file>
+    <exclude-pattern>vendor/*</exclude-pattern>
+    <exclude-pattern>redoc.standalone.js</exclude-pattern>
+    <rule ref="PSR2"/>
+
+    <rule ref="Generic.Files.LineLength">
+        <exclude-pattern>*.inc.php</exclude-pattern>
+        <properties>
+            <property name="lineLimit" value="135"/>
+            <property name="absoluteLineLimit" value="520"/>
+        </properties>
+    </rule>
+    <rule ref="Generic.Files.LineEndings">
+        <severity>0</severity>
+    </rule>
+
+
+</rule>
