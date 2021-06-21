@@ -72,6 +72,7 @@ class MySQL
     /**
      * @param $query
      * @param Exception $e
+     * @throws DatabaseException
      */
     public function errorHandler($query, Exception $e)
     {
@@ -79,7 +80,7 @@ class MySQL
             $this->errorHandler->onErrorAction($query, $e);
         } else {
             http_response_code(500);
-            die("DB ERROR:" . $query.$e->getMessage());
+            throw new DatabaseException('Database internal error', 'DB ERROR:' . $query.$e->getMessage());
         }
     }
 
@@ -131,7 +132,6 @@ class MySQL
                 if (strpos($key, 'integer_') === 0) {
                     $bindingType = PDO::PARAM_INT;
                 }
-
                 $statement->bindParam(':' . $key, $$key, $bindingType);
             }
 
@@ -176,7 +176,7 @@ class MySQL
             $this->errorHandler($query, $e);
         }
 
-        return null;
+        throw new \RuntimeException('Could not execute fetch all');
     }
 
     /**
@@ -200,12 +200,27 @@ class MySQL
      * @param array $binds
      * @return array
      */
-    public function assoc($query, $binds = array())
+    public function assoc($query, $binds = array()): array
     {
         $rows = $this->all($query, $binds);
         $ret = [];
         foreach ($rows as $row) {
             $ret[current($row)] =  next($row);
+        }
+        return $ret;
+    }
+
+/**
+     * @param $query
+     * @param array $binds
+     * @return array
+     */
+    public function column($query, $binds = array())
+    {
+        $rows = $this->all($query, $binds);
+        $ret = [];
+        foreach ($rows as $row) {
+            $ret[] = current($row);
         }
         return $ret;
     }

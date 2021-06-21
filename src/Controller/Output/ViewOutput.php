@@ -61,4 +61,18 @@ class ViewOutput implements OutputInterface
         }
     }
 
+    private function renderTableStat($with, $compare, $whatIs) {
+        $this->assign('firstData', $with);
+        $this->assign('compareFilesData', $compare);
+        $this->assign('whatIs', $whatIs);
+        $this->render('_table');
+    }
+
+    private function renderStatementStat($with, $compare, $whatIs) {
+        $this->assign('firstData', $with);
+        $this->assign('compareFilesData', $compare);
+        $this->assign('whatIs', $whatIs);
+        $this->render('_table_statement');
+    }
+
 }

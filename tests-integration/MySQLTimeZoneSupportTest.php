@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Common;
+namespace MisicoIntegrationTest;
 
 use Misico\DB\MySQL;
 use function DI\autowire;

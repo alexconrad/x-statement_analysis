@@ -5,8 +5,10 @@ error_reporting(E_ALL);
 use Misico\Application\Application;
 use Misico\Common\Common;
 use Misico\Controller\Output\OutputInterface;
+use Misico\Controller\Output\ViewOutput;
 use Misico\DB\MySQL;
 use DI\ContainerBuilder;
+use Misico\FriendlyException;
 
 require __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'defines.php';
 
@@ -39,7 +41,7 @@ try {
     $className = 'Misico\\Web\\Controller\\' . $controller;
     $controllerObject = $container->get($className);
 
-    $method = 'action'.ucfirst($action);
+    $method = 'action' . ucfirst($action);
 
     if (!method_exists($controllerObject, $method)) {
         throw new RuntimeException('Invalid action.');
@@ -52,10 +54,17 @@ try {
     }
 
     $controllerReturn->processControllerReturn($controller, $action);
+} catch (FriendlyException $e) {
+        $object = $container->get(ViewOutput::class);
+        $object->setTemplate('hard_error');
+        $object->assign('exception', $e);
+        $object->assign('exceptionMessage', get_class($e).':'.$e->getSafeMessage());
+        $object->processControllerReturn('','');
+
 } catch (Exception $e) {
     if ($container instanceof \DI\Container) {
 
-        $object = $container->get(\Misico\Controller\Output\ViewOutput::class);
+        $object = $container->get(ViewOutput::class);
         $object->setTemplate('hard_error');
         $object->assign('exceptionMessage', get_class($e).':'.$e->getMessage());
         $object->processControllerReturn('','');

@@ -10,7 +10,7 @@ $this->render('_menu');
 
 if (isset($_GET['uploaded'])) { ?>
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong>Holy guacamole!</strong> You uploaded <?= $_GET['uploaded'] ?> ok !
+        <strong>Holy guacamole!</strong> You uploaded <?= htmlspecialchars($_GET['uploaded']) ?> ok !
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -25,8 +25,17 @@ if (isset($_GET['uploaded'])) { ?>
             <form action="<?php echo $this->common->link(HomePageController::class, 'upload'); ?>" method="post"
                   enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="exampleFormControlFile1">Table CSV</label>
+                    <label for="exampleFormControlInput3"></label>
+                    <input type="text" name="table_schema" class="form-control" id="exampleFormControlInput3"
+                           placeholder="Table schema to parse" maxlength="120" required value="epay_ro_anonymized">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlFile1">x$schema_table_statistics CSV</label>
                     <input type="file" name="table_file" class="form-control-file" id="exampleFormControlFile2" required>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlFile1">x$statement_analysis CSV</label>
+                    <input type="file" name="statement_file" class="form-control-file" id="exampleFormControlFile2" required>
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1"></label>
@@ -38,14 +47,16 @@ if (isset($_GET['uploaded'])) { ?>
 
         </div>
     </div>
-    <form action="<?php echo $this->common->link(CompareController::class, 'index'); ?>" method="post">
+    <form action="<?=$this->common->bootstrapFile()?>" method="get">
+        <?=$this->common->hiddenParams(CompareController::class, 'index')?>
         <div class="container-fluid w-100 mt-1">
             <table class="table">
                 <thead class="thead-dark">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Filename</th>
-                    <th scope="col">Desc</th>
+                    <th scope="col">x$schema_table_statistics</th>
+                    <th scope="col">x$statement_analysis</th>
+                    <th scope="col">Description</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -53,16 +64,17 @@ if (isset($_GET['uploaded'])) { ?>
                 <?php foreach ($this->variables['uploads'] as $cnt => $upload) { ?>
 
                     <tr>
-                        <th scope="row"><?= $cnt ?></th>
+                        <th scope="row"><?= ($cnt+1) ?></th>
                         <td>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="selected_uploads[]"
+                                <input class="form-check-input" type="checkbox" name="se[]"
                                        value="<?= $upload['file_id'] ?>" id="defaultCheck<?= $cnt ?>">
                                 <label class="form-check-label" for="defaultCheck<?= $cnt ?>">
                                     <?= $upload['file_name'] ?>
                                 </label>
                             </div>
                         </td>
+                        <td><?= $upload['file_name_statement'] ?></td>
                         <td><?= $upload['description'] ?></td>
                     </tr>
                 <?php } ?>

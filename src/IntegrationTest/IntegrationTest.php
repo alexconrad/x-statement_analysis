@@ -2,8 +2,8 @@
 
 namespace IntegrationTest;
 
-use DatabaseDeployment\DatabaseDeployment;
-use DB\MySQL;
+use Misico\DatabaseDeployment\DatabaseDeployment;
+use Misico\DB\MySQL;
 use function DI\autowire;
 use DI\Container;
 use DI\ContainerBuilder;
