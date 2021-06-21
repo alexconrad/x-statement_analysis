@@ -66,6 +66,43 @@ if (isset($_GET['uploaded'])) { ?>
     color: white;
 }
 
+
+
+table {
+  text-align: left;
+  position: relative;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 0.25rem;
+}
+tr.red th {
+  background: red;
+  color: white;
+}
+tr.green th {
+  background: green;
+  color: white;
+}
+tr.purple th {
+  background: purple;
+  color: white;
+}
+th.stickTh {
+  background: white;
+  position: sticky;
+  top: 0; /* Don't forget this, required for the stickiness */
+  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+}
+
+.subSticky {
+  background: white;
+  position: sticky;
+  top: 41px; /* Don't forget this, required for the stickiness */
+  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+}
+
+
 </style>
 <?php
     $currentArray = $_GET['se'];
@@ -76,10 +113,10 @@ if (isset($_GET['uploaded'])) { ?>
     <table class="table table-hover table-sm table-bordered">
         <thead class="thead-dark">
         <tr>
-            <th scope="col" colspan="2" class="right-border">
+            <th scope="col" colspan="2" class="right-border stickTh">
             <A class="btn btn-sm btn-success" href="index.php">Back</A>
             </th>
-            <th scope="col" colspan="3" class="right-border center-cell"><?php
+            <th scope="col" colspan="3" class="right-border center-cell stickTh"><?php
 
                 $toRight = $currentArray;
                 [$toRight[0], $toRight[1]] = [$toRight[1], $toRight[0]];
@@ -101,18 +138,18 @@ if (isset($_GET['uploaded'])) { ?>
 
                 ?>
                       <div class="btn-group btn-group-sm" role="group">
-                        <button class="btn btn-sm btn-secondary">&nbsp;&nbsp;</button>
-                        <button class="btn btn-sm btn-secondary">&nbsp;</button>
-                        <a class="btn btn-sm btn-secondary" ><?php echo $firstFileUpload->getDescription(); ?></a>
-                        <a class="btn btn-sm btn-secondary" href="<?php echo $toRightLink; ?>">&gt;</a>
-                        <a class="btn btn-sm btn-secondary" href="<?php echo $toLastLink; ?>">&gt;&gt;</a>
+                        <button class="btn btn-sm btn-primary">&nbsp;&nbsp;</button>
+                        <button class="btn btn-sm btn-primary">&nbsp;</button>
+                        <a class="btn btn-sm btn-primary" ><?php echo $firstFileUpload->getDescription(); ?></a>
+                        <a class="btn btn-sm btn-primary" href="<?php echo $toRightLink; ?>">&gt;</a>
+                        <a class="btn btn-sm btn-primary" href="<?php echo $toLastLink; ?>">&gt;&gt;</a>
                         </div>
 
                 <?php
 
             ?></th>
             <?php foreach ($compareFiles as $compareFile) { ?>
-            <th scope="col" colspan="3" class="right-border center-cell text-center"><?php
+            <th scope="col" colspan="3" class="right-border center-cell text-center  stickTh"><?php
 
                 $lastOne = false;
                 $key = array_search($compareFile->getFileId(), $currentArray, false);

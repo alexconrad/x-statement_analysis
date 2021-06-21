@@ -69,7 +69,7 @@ class CompareController
             $compareFiles[] = $this->fileUploadsDao->getFileUpload($fileId);
         }
 
-        $query = 'SELECT table_id FROM sys_table_stats WHERE file_id = :id ORDER BY total_latency DESC LIMIT 20';
+        $query = 'SELECT table_id FROM sys_table_stats WHERE file_id = :id ORDER BY total_latency DESC LIMIT 50';
         $tableIds = $this->mySQL->column($query, ['id' => $firstFileId]);
 
         $pairs = [];

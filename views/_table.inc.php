@@ -22,7 +22,7 @@ foreach ($compareFiles as $compareFile) {
 }
 ?>
 
-                <tr class="table-dark no-hover bg-dark">
+                <tr class="table-dark no-hover bg-dark subSticky">
                     <th scope="col" colspan="2" class="bg-dark right-border">&nbsp;</th>
                     <th scope="col" class="bg-dark center-cell">Rows</th>
                     <th scope="col" class="bg-dark center-cell">Latency (ms)</th>
