@@ -39,8 +39,11 @@ if (isset($_GET['uploaded'])) { ?>
     .number-cell {
         text-align: right;
     }
+    .na {
+        background-color: #c0c0c0;
+    }
     .same {
-        background-color: #C0C0C0;
+        background-color: #DEDEDE;
     }
     .bad-bad {
         background-color: #FFDDDD;

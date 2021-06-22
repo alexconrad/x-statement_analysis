@@ -285,6 +285,12 @@ class TableStatsRow
 
     private function diff($with, $thisValue)
     {
+        if ($with === 'n/a') {
+            return 'n/a';
+        }
+        if ($thisValue === 'n/a') {
+            return 'n/a';
+        }
 
         /** @noinspection TypeUnsafeComparisonInspection */
         if ($thisValue == $with) {

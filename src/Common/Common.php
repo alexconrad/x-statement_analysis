@@ -139,6 +139,10 @@ HTML;
 
     public static function classForPercent($diff): string
     {
+        if ($diff === 'n/a') {
+            return 'na';
+        }
+
         $class = 'same';
         if ($diff == 0) {
             return $class;
@@ -212,7 +216,7 @@ HTML;
     public static function formatLatencyPercentage($percent)
     {
         if ($percent === 'n/a') {
-            return '<br><small>n/a</small>';
+            return '<br><small style="color:#a0a0a0;">n/a</small>';
         }
         return '<br><small>' . $percent . '%</small>';
     }
@@ -220,7 +224,7 @@ HTML;
     public static function formatRequestPercentage($percent)
     {
         if ($percent === 'n/a') {
-            return '<br><small>n/a</small>';
+            return '<br><small style="color:#a0a0a0;">n/a</small>';
         }
         return '<br><small>' . $percent . '%</small>';
     }
@@ -228,6 +232,9 @@ HTML;
 
     public static function formatDiffPercentage($string)
     {
+        if ($string === 'n/a') {
+            return '<br><small style="color:#a0a0a0;">n/a</small>';
+        }
         if ($string === null) {
             return '<br>';
         }

@@ -162,25 +162,50 @@ class SysTableStatsDao
         $query = 'SELECT * FROM sys_table_stats WHERE file_id = :id and table_id = :tid ORDER BY row_id';
         $row = $this->mySQL->oneRow($query, ['id' => $fileId, 'tid'=>$tableId]);
 
-        return new TableStatsRow(
-            $row['total_latency'],
-            $row['rows_fetched'],
-            $row['fetch_latency'],
-            $row['rows_inserted'],
-            $row['insert_latency'],
-            $row['rows_updated'],
-            $row['update_latency'],
-            $row['rows_deleted'],
-            $row['delete_latency'],
-            $row['io_read_requests'],
-            $row['io_read'],
-            $row['io_read_latency'],
-            $row['io_write_requests'],
-            $row['io_write'],
-            $row['io_write_latency'],
-            $row['io_misc_requests'],
-            $row['io_misc_latency']
-        );
+        if (isset($row['total_latency'])) {
+            return new TableStatsRow(
+                $row['total_latency'],
+                $row['rows_fetched'],
+                $row['fetch_latency'],
+                $row['rows_inserted'],
+                $row['insert_latency'],
+                $row['rows_updated'],
+                $row['update_latency'],
+                $row['rows_deleted'],
+                $row['delete_latency'],
+                $row['io_read_requests'],
+                $row['io_read'],
+                $row['io_read_latency'],
+                $row['io_write_requests'],
+                $row['io_write'],
+                $row['io_write_latency'],
+                $row['io_misc_requests'],
+                $row['io_misc_latency']
+            );
+        }
+
+            return new TableStatsRow(
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+            );
+
+
+
     }
 
 

@@ -386,9 +386,17 @@ class ImportService
 
     private function needsToBeMySQLDateTime($string): string {
 
-        // 17/5/2021 15:08:25
-        $format = "j/n/Y H:i:s";
+        $format = "Y-m-d H:i:s";
         $dateTime = \DateTime::createFromFormat($format, $string);
+        if ($dateTime === false) {
+            $format = "j/n/Y H:i:s";
+            $dateTime = \DateTime::createFromFormat($format, $string);
+        }
+
+        if (!($dateTime instanceof \DateTime)) {
+            throw new ImportException('Invalid date format : '.$string);
+        }
+
         return $dateTime->format('Y-m-d H:i:s');
     }
 

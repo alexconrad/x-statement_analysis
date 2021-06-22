@@ -52,6 +52,9 @@ if (isset($_GET['uploaded'])) { ?>
             text-align: right;
         }
 
+        .na {
+            background-color: #c0c0c0;
+        }
         .same {
             background-color: #fafafa;
         }
